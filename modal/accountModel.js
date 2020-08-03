@@ -1,9 +1,10 @@
 var mongoose = require('../config/dbConnect');
-var bookModal = require("./bookModal");
+var bookModal = require("./bookModel");
 var Schema = mongoose.Schema;
 var accoutSchema = new Schema({
     username : String,
     password : String,
+    email: String,
     role: String,
     bookId:[{
         type:String,
@@ -29,6 +30,6 @@ AccoutModel.findOne({
 })
 .populate("bookId")
 .then(data=>{
-    console.log(data);
+    console.log(data.bookId[0]);
 })
 module.exports= AccoutModel;

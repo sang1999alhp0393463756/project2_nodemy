@@ -1,0 +1,20 @@
+-  database: 
+ + Bảng user: username, email, password, role, idBook
+ + Bảng book: name, { thời gian đăng sách, thời gian sửa sách }
+- api
+ + admin : thêm , sửa, xóa, hiển thị toàn bộ sách có trong database
+ + manager: thêm, sửa, xóa, hiển thị sách của chính nó
+ + người dùng : hiển thị toàn bộ sách trong database
++ giao diện
+ + trang đăng nhập, 
+ + trang đăng kí
+ + Hiển thị sách (admin, manager, người dùng )
+ + Hiển thị người dùng (admin)
+yêu cầu: 
++ database viết bằng mongodb
++ tên api chuẩn restful
++ viết api xong mới được ghép giao diện
++ viết api phải test bằng postman
++ viết giao diện bằng ejs
++ sử dụng bcrypt
++ sử dụng jwt 
