@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+  <a href="http://localhost:3000/list"><button type="button" class="btn btn-primary">quay ve trang list</button></a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">delete</th>
+            <th scope="col">update</th>
+          </tr>
+        </thead>
+        <% for(var i=0;i<listManager.length;i++){%>
+            <tbody>
+              <tr>
+                <th scope="row"><%= listManager[i].username %></th>
+                <th scope="row"><%= listManager[i].email %></th>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="deleteFunction('<%= listManager[i]._id %>,<%= listManager[i].username %>')">
+                  delete
+                </button></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" onclick="updateFunction('<%= listManager[i]._id %>,<%= listManager[i].username %>,<%= listManager[i].email %>')">
+                  update
+                </button></td>
+              </tr>
+            </tbody>
+          <%}%>
+    </table>
+    <button type="button" class="btn btn-dark" id="logout">logout</button>
+    <div class="modalButton"></div>
+</body>
+<script>
+  
+function deleteFunction(infoUser){
+  var id = infoUser.split(',')[0];
+  var name = infoUser.split(',')[1];
+  $(".modalButton").empty();
+  var templete=`<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>Bạn chắc chắc muốn xóa user ${name} này</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">không</button>
+        <button type="button" class="btn btn-primary" onclick="clearFunction('${id}')">có</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+$(".modalButton").append(templete);
+}
+function clearFunction(userId){
+  $.ajax({
+    url: '/delUser',
+    type:"DELETE",
+    data:{
+      idUser:userId
+    }
+  }).then(data=>{
+    alert('xoa thanh cong');
+    window.location.href ="http://localhost:3000/admin";
+  })
+}
+function updateFunction(infoUser){
+  var idUser = infoUser.split(',')[0];
+  var username = infoUser.split(',')[1];
+  var email = infoUser.split(',')[2];
+  $(".modalButton").empty();
+  var templete=`<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      username: <input type="text" value="${username}" id="username-${idUser}"></br>
+      email: <input type="text" value="${email}" id="email-${idUser}">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancle</button>
+        <button type="button" class="btn btn-primary" onclick="saveFunction('${idUser}')">update</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+$(".modalButton").append(templete);
+}
+function saveFunction(idUser){
+  var username = $("#username-"+idUser).val();
+  var email = $("#email-"+idUser).val();
+ 
+  $.ajax({
+    url: '/updateUser',
+    type:"PUT",
+    data:{
+      username:username,
+      email:email,
+      id:idUser
+    }
+  }).then(data=>{
+    if(data.error){
+      alert('update thanh cong');
+      window.location.href ="http://localhost:3000/admin";
+    }else{
+      alert("update that bai");
+    }
+  })
+}
+function delete_cookie( name ) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+$("#logout").click(function(){
+  delete_cookie("token");
+  window.location.href ="http://localhost:3000/login";
+})
+</script>
+</html>

@@ -14,22 +14,73 @@ var accoutSchema = new Schema({
 collection : "user"
 });
 var AccoutModel = mongoose.model("user",accoutSchema);
+function updateBookId(idUser,idBook){
+    console.log(typeof idBook);
+    return AccoutModel.updateOne({
+        _id :idUser
+    },{
+        $push : {bookId :[idBook]}
+    })
+}
 
-// AccoutModel.updateOne({
-//     _id :"5f239de5120b014494bbc72b"
-// },{
-//     $push : {bookId :["5f238c7b350ba80b286ef84b"]}
-// }).then(data=>{
-//     console.log(data);
-// }).catch(err=>{
-//     console.log(err);
-// })
+function getAll(){
+    return AccoutModel.find().populate("bookId");
+}
 
-AccoutModel.findOne({
-    _id:"5f239de5120b014494bbc72b"
-})
-.populate("bookId")
-.then(data=>{
-    console.log(data.bookId[0]);
-})
-module.exports= AccoutModel;
+function findLogin(username){
+    return AccoutModel.find({
+        username : username,
+    })
+}
+function createAccount(accout){
+    return AccoutModel.create({
+        username : accout.username,
+        password : accout.password,
+        email : accout.email,
+        role : accout.role
+    })
+}
+function deleteBookId(idUser,idBook){
+    return AccoutModel.updateOne({
+        _id :idUser
+    },{
+        $pull : {bookId :idBook}
+    })
+}
+function findById(id){
+    return AccoutModel.findOne({
+        _id:id
+    })
+}
+function findManager(){
+    return AccoutModel.find({
+        role:"manager"
+    })
+}
+function findRole(role){
+    return AccoutModel.find({
+        role:role
+    })
+}
+function findIdBook(idUser){
+    return AccoutModel.findOne({_id:idUser}).populate('bookId');
+}
+function deleteUser(id){
+return AccoutModel.deleteOne({_id:id});
+}
+function updateUser(id,username,email){
+    return AccoutModel.updateOne({_id:id},{username:username,email:email});
+}
+module.exports= {
+    findLogin,
+    createAccount,
+    updateBookId,
+    deleteBookId,
+    getAll,
+    findById,
+    findManager,
+    findRole,
+    findIdBook,
+    deleteUser,
+    updateUser
+};

@@ -1,11 +1,234 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+   
+    <% var role = ''%>
+    <% if(user){
+     role = user.role; 
+    }%>
+    <%if(role=="admin"){%>
+      <a href="http://localhost:3000/admin"><button type="button" class="btn btn-primary">vao trang admin</button></a>
+      <%}%> 
+    <%if(role!=""){%> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+      add book
+    </button>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            name Book : <input type="text" id="nameBook">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="addBook">Save changes</button>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">name book</th>
+          <th scope="col">author</th>
+          <th scope="col">delete</th>
+          <th scope="col">update</th>
+        </tr>
+      </thead>
+    <%if(role=="admin"){%>
+      <% for(var i=0;i<list.length;i++){%>
+        <% for(var j=0;j<list[i].bookId.length;j++){%>
+          <tbody>
+            <tr>
+              <th scope="row"><%= list[i].bookId[j].name %></th>
+              <th scope="row"><%= list[i].username %></th>
+              <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="deleteFunction('<%= list[i].bookId[j]._id %>,<%= list[i].bookId[j].name %>')">
+                delete
+              </button></td>
+              <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" onclick="updateFunction('<%= list[i].bookId[j]._id %>,<%= list[i].bookId[j].name %>')">
+                update
+              </button></td>
+            </tr>
+          </tbody>
+        <%}%>
+      <%}%>
+    <%}%>
+    <%if(role=="manager"){%>
+      <% for(var i=0;i<list.length;i++){%>
+        <% for(var j=0;j<list[i].bookId.length;j++){%>
+          <tbody>
+            <tr>
+              <th scope="row"><%= list[i].bookId[j].name %></th>
+              <th scope="row"><%= list[i].username %></th>
+              <%if(user._id.toString()==list[i]._id.toString()){%>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="deleteFunction('<%= list[i].bookId[j]._id %>,<%= list[i].bookId[j].name %>')">
+                  delete
+                </button></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" onclick="updateFunction('<%= list[i].bookId[j]._id %>,<%= list[i].bookId[j].name %>')">
+                  update
+                </button></td>
+              <%}else{%>
+                <td></td>
+                <td></td>
+                <%}%>
+            </tr>
+          </tbody>
+        <%}%>
+      <%}%>
+    <%}%>
+  
+  </table>
+  <button type="button" class="btn btn-dark" id="logout">logout</button>
+  <%}%>
+  <%if(role==""){%>
+    <button type="button" class="btn btn-primary" id="logout">login</button>
+    <button type="button" class="btn btn-primary" id="sign-up">sign-up</button>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">name book</th>
+          <th scope="col">author</th>
+        </tr>
+      </thead>
+      <% for(var i=0;i<list.length;i++){%>
+        <% for(var j=0;j<list[i].bookId.length;j++){%>
+          <tbody>
+            <tr>
+              <th scope="row"><%= list[i].bookId[j].name %></th>
+              <th scope="row"><%= list[i].username %></th>
+            </tr>
+          </tbody>
+        <%}%>
+      <%}%>
+  </table>
+  <%}%>
+
+  <div class="modalButton"></div>
   </body>
+  <script>
+function deleteFunction(infoBook){
+  var bookId = infoBook.split(',')[0];
+  var name = infoBook.split(',')[1];
+  $(".modalButton").empty();
+  var templete=`<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>Bạn chắc chắc muốn xóa book ${name} này</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">không</button>
+        <button type="button" class="btn btn-primary" onclick="clearFunction('${bookId}')">có</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+$(".modalButton").append(templete);
+}
+
+function updateFunction(infoBook){
+  var bookId = infoBook.split(',')[0];
+  var name = infoBook.split(',')[1];
+  $(".modalButton").empty();
+  var templete=`<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <input type="text" value="${name}" id="update-${bookId}">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancle</button>
+        <button type="button" class="btn btn-primary" onclick="saveFunction('${bookId}')">update</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+$(".modalButton").append(templete);
+}
+function clearFunction(bookId){
+  $.ajax({
+    url: '/delBook',
+    type:"DELETE",
+    data:{
+      idBook:bookId
+    }
+  }).then(data=>{
+    alert('xoa thanh cong');
+    window.location.href ="http://localhost:3000/list";
+  })
+}
+function saveFunction(bookId){
+  var name = $("#update-"+bookId).val();
+  $.ajax({
+    url: '/',
+    type:"PUT",
+    data:{
+      idBook:bookId,
+      nameBook:name
+    }
+  }).then(data=>{
+    if(data.error){
+      alert('update thanh cong');
+      window.location.href ="http://localhost:3000/list";
+    }else{
+      alert("update that bai");
+    }
+  })
+}
+$("#addBook").click(function(){
+  var nameBook = $("#nameBook").val();
+ $.ajax({
+   url: '/addBook',
+   type:'POST',
+   data: {
+    nameBook :nameBook
+   }
+ }).then(data=>{
+   if(data.error){
+     alert(data.messager);
+     window.location.href ="http://localhost:3000/list";
+   }else{
+    alert(data.messager);
+   }
+ })
+});
+function delete_cookie( name ) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+$("#logout").click(function(){
+  delete_cookie("token");
+  window.location.href ="http://localhost:3000/login";
+})
+$("#sign-up").click(function(){
+  delete_cookie("token");
+  window.location.href ="http://localhost:3000/dangki";
+})
+  </script>
 </html>
