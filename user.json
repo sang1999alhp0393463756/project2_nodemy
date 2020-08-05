@@ -1,0 +1,46 @@
+[{
+  "_id": {
+    "$oid": "5f2915cafa808d2dc4e07dbd"
+  },
+  "bookId": [
+    "5f29164bfa808d2dc4e07dbe",
+    "5f291d70fa808d2dc4e07dc2",
+    "5f296550ccd09d3b88134897",
+    "5f296595ccd09d3b88134898",
+    "5f2965a2ccd09d3b88134899"
+  ],
+  "username": "sang",
+  "password": "$2b$10$0P9oyPbhZFYH2nXMhklPwubGFxgsuYv7b1AJAXbYlu4lM/WQr8W3a",
+  "email": "sangnvhe130388@fpt.edu.vn",
+  "role": "admin"
+},{
+  "_id": {
+    "$oid": "5f292dec8ec0a94788e66b2e"
+  },
+  "bookId": [],
+  "username": "sang3",
+  "password": "$2b$10$plo5W/QOKVvCZK3SeAF1peKYzOPLiFcehxkHbfvNwJNElIGuduuum",
+  "email": "sangnvhe130388@fpt.edu.vn",
+  "role": "manager"
+},{
+  "_id": {
+    "$oid": "5f292e118ec0a94788e66b2f"
+  },
+  "bookId": [],
+  "username": "sang5",
+  "password": "$2b$10$atkLyJ6cTq4T12dvEVw2OuibW5BRjWHuVphSiNj.b63fah8VCSc9i",
+  "email": "sangnvhe130388@fpt.edu.vn",
+  "role": "manager"
+},{
+  "_id": {
+    "$oid": "5f29672dcc26c30578991e70"
+  },
+  "bookId": [
+    "5f297e26258f5728dcb8d82b",
+    "5f297e32258f5728dcb8d82c"
+  ],
+  "username": "sang4",
+  "password": "$2b$10$g2BXv9pyj2opS7WN7vCfW.HFlMBWxDCb/ZgWR45RFO4c77D/xBjj6",
+  "email": "sangnvhe130388@fpt.edu.vn",
+  "role": "manager"
+}]
