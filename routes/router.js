@@ -42,6 +42,9 @@ router.get('/dangki', (req, res) => {
 router.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, "../views/login.html"));
 });
+router.get('/',(req,res)=>{
+    res.redirect('/login');
+})
 router.post('/sign-in', function (req, res, next) {
     accout.findLogin(req.body.username).then(data => {
         if (data.length != 0) {
