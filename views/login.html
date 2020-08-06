@@ -134,7 +134,6 @@ $("#btn").click(function(){
     }).then(result=>{
         if(result.error){
 		  setCookie("token",result.data,1);
-		  window.location.href ="http://localhost:3000/list";
         }else{
             alert("tai khoan hoac mat khau khong ton tai");
         }
