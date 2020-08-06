@@ -29,7 +29,9 @@ router.post('/sign-up', function (req, res, next) {
                 var primaryKey = fs.readFileSync('./key/primarykey.pem');
                 var token = jwt.sign({ id: data._id }, primaryKey, { algorithm: "RS256" });
                 res.cookie("token",token,{maxAge:60*60*1000*24});
-                res.redirect('/list');
+                res.json({
+                    error: true,
+                });
             });
         });
     });
@@ -64,7 +66,11 @@ router.post('/sign-in', function (req, res, next) {
         if (value) {
             var primaryKey = fs.readFileSync('./key/primarykey.pem');
             var token = jwt.sign({ id: res.user[0]._id }, primaryKey, { algorithm: "RS256" });
-            res.redirect('/list');
+            res.json({
+                error: true,
+                messager: "dang nhap thanh cong",
+                data: token
+            })
         } else {
             res.json({
                 error: false,
