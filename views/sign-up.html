@@ -44,7 +44,7 @@
                         </div>
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="http://localhost:3000/login/" class="loginhere-link">Login here</a>
+                        Have already an account ? <a href="https://nodemy-k6-sang-project2.herokuapp.com/login/" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>
@@ -72,6 +72,7 @@ $("#submit").click(function(){
     }).then(data=>{
     if(data.error){
         alert("successfull");
+        window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/list";
     }else{
         alert("fail");
     }

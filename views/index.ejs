@@ -15,7 +15,7 @@
      role = user.role; 
     }%>
     <%if(role=="admin"){%>
-      <a href="http://localhost:3000/admin"><button type="button" class="btn btn-primary">vao trang admin</button></a>
+      <a href="https://nodemy-k6-sang-project2.herokuapp.com/admin"><button type="button" class="btn btn-primary">vao trang admin</button></a>
       <%}%> 
     <%if(role!=""){%> 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
@@ -181,7 +181,7 @@ function clearFunction(bookId){
     }
   }).then(data=>{
     alert('xoa thanh cong');
-    window.location.href ="http://localhost:3000/list";
+    window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/list";
   })
 }
 function saveFunction(bookId){
@@ -196,7 +196,7 @@ function saveFunction(bookId){
   }).then(data=>{
     if(data.error){
       alert('update thanh cong');
-      window.location.href ="http://localhost:3000/list";
+      window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/list";
     }else{
       alert("update that bai");
     }
@@ -213,7 +213,7 @@ $("#addBook").click(function(){
  }).then(data=>{
    if(data.error){
      alert(data.messager);
-     window.location.href ="http://localhost:3000/list";
+     window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/list";
    }else{
     alert(data.messager);
    }
@@ -224,11 +224,11 @@ function delete_cookie( name ) {
 }
 $("#logout").click(function(){
   delete_cookie("token");
-  window.location.href ="http://localhost:3000/login";
+  window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/login";
 })
 $("#sign-up").click(function(){
   delete_cookie("token");
-  window.location.href ="http://localhost:3000/dangki";
+  window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/dangki";
 })
   </script>
 </html>

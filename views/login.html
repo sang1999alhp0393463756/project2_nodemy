@@ -83,7 +83,7 @@
 							Not a member?
 						</span>
 
-						<a href="http://localhost:3000/dangki" class="txt2 bo1">
+						<a href="https://nodemy-k6-sang-project2.herokuapp.com/dangki" class="txt2 bo1">
 							Sign up now
 						</a>
 					</div>
@@ -134,7 +134,7 @@ $("#btn").click(function(){
     }).then(result=>{
         if(result.error){
 		  setCookie("token",result.data,1);
-		  window.location.href ="http://localhost:3000/list";
+		  window.location.href ="https://nodemy-k6-sang-project2.herokuapp.com/list";
         }else{
             alert("tai khoan hoac mat khau khong ton tai");
         }
