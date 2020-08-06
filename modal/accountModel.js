@@ -71,6 +71,12 @@ return AccoutModel.deleteOne({_id:id});
 function updateUser(id,username,email){
     return AccoutModel.updateOne({_id:id},{username:username,email:email});
 }
+function checkBook(idBook){
+    return AccoutModel.find({
+        bookId : { $in: idBook }
+    })
+}
+
 module.exports= {
     findLogin,
     createAccount,
@@ -82,5 +88,6 @@ module.exports= {
     findRole,
     findIdBook,
     deleteUser,
-    updateUser
+    updateUser,
+    checkBook
 };

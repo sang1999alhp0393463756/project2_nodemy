@@ -175,9 +175,20 @@ router.put('/', async function (req, res, next) {
         res.nameBook = nameBook;
         next();
     }
-}, (req, res) => {
+}, async (req,res,next)=>{
     var id = req.body.idBook;
-    book.updateBook(id, res.nameBook).then(data => {
+    var data = await accout.checkBook(id);
+    if(data.length==0){
+        res.idbook = id;
+        next();
+    }else{
+        return res.json({
+            error: false
+        });
+    }
+
+}, (req, res) => {
+    book.updateBook(res.idbook, res.nameBook).then(data => {
         return res.json({
             error: true
         });
